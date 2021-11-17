@@ -17,4 +17,6 @@ class AppColor extends Color {
   static const cameraBackground = Colors.black;
   static const selectMode = Colors.amber;
   static const unselectMode = Colors.black;
+
+  static const galleryBackground = Colors.white;
 }

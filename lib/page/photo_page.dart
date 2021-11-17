@@ -1,34 +1,23 @@
 import 'dart:io';
 
+import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_gallery/strings.dart';
+import 'package:photo_gallery/widgets/photo_main_widget.dart';
 
 class PhotoPage extends StatelessWidget {
-  const PhotoPage({required this.path, Key? key}) : super(key: key);
+  const PhotoPage({required this.photoList, Key? key}) : super(key: key);
 
-  final String path;
+  final List<XFile> photoList;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(Strings.TAKE_PHOTO_TITLE),
+        title: const Text(Strings.MAIN_TITLE),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.file(
-              File(path),
-              alignment: Alignment.center,
-              fit: BoxFit.contain,
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-            ),
-          ],
-        ),
-      ),
+      body: PhotoMainWidget(photoList: photoList),
     );
   }
 }

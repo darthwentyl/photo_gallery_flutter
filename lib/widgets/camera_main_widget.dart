@@ -307,17 +307,7 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
                       : null,
                 ),
               ),
-              onTap: () {
-                if (_photos.isNotEmpty) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PhotoPage(path: _photos.last.path),
-                      fullscreenDialog: true,
-                    ),
-                  );
-                }
-              },
+              onTap: () => _onShowPictures(),
             ),
           ],
         ),
@@ -683,6 +673,18 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
       _exposureModeControlRowAnimationController.reverse();
       _focusModeControlRowAnimationController.reverse();
       _resolutionPresetModeRowAnimationController.reverse();
+    }
+  }
+
+  _onShowPictures() {
+    if (_photos.isNotEmpty) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PhotoPage(photoList: _photos),
+          fullscreenDialog: true,
+        ),
+      );
     }
   }
 }
