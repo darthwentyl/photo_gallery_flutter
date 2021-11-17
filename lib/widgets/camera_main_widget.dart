@@ -4,19 +4,20 @@ import 'dart:core';
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:photo_gallery/page/photo_page.dart';
 import 'package:photo_gallery/strings.dart';
 import 'package:photo_gallery/styles.dart';
 import 'package:photo_gallery/utils/cameras_list.dart';
 
-class CameraWidget extends StatefulWidget {
-  const CameraWidget({Key? key}) : super(key: key);
+class CameraMainWidget extends StatefulWidget {
+  const CameraMainWidget({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _CameraWidgetState();
+  State<StatefulWidget> createState() => _CameraMainWidgetState();
 }
 
-class _CameraWidgetState extends State<CameraWidget>
+class _CameraMainWidgetState extends State<CameraMainWidget>
     with WidgetsBindingObserver, TickerProviderStateMixin {
   bool _isCameraInit = false;
   CameraController? _controller;
@@ -60,6 +61,11 @@ class _CameraWidgetState extends State<CameraWidget>
   @override
   void initState() {
     super.initState();
+
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
 
     WidgetsBinding.instance!.addObserver(this);
 
@@ -229,7 +235,7 @@ class _CameraWidgetState extends State<CameraWidget>
           padding: const EdgeInsets.only(right: 8.0),
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.black87,
+              color: AppColor.cameraZoomBackground,
               borderRadius: BorderRadius.circular(10.0),
             ),
             child: Padding(

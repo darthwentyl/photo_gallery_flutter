@@ -47,43 +47,6 @@ class PageContainer extends StatefulWidget {
 class _PageContainerState extends State<PageContainer> {
   @override
   Widget build(BuildContext context) {
-    return MainPage(
-      takePhotos: PageTextButton(context, _showTakePhotoPage,
-          Icons.add_a_photo_outlined, Strings.TAKE_PHOTO_BTN),
-      showPhotos: PageTextButton(context, _showShowPhotosPage,
-          Icons.remove_red_eye_outlined, Strings.SHOW_PHOTOS_BTN),
-      sendExistPhotos: PageTextButton(context, _showSendPhotosPage,
-          Icons.wb_cloudy_outlined, Strings.SEND_PHOTOS_BTN),
-      login: PageTextButton(
-          context, _showLoginPage, Icons.login_outlined, Strings.LOGIN_BTN),
-    );
-  }
-
-  void _showTakePhotoPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const TakePhotoPage(),
-        fullscreenDialog: true,
-      ),
-    );
-  }
-
-  void _showShowPhotosPage() {
-    // TODO:
-    ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text("_showShowPhotosPage")));
-  }
-
-  void _showSendPhotosPage() {
-    // TODO:
-    ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text("_showSendPhotosPage")));
-  }
-
-  void _showLoginPage() {
-    // TODO:
-    ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text("_showLoginPage")));
+    return const TakePhotoPage();
   }
 }

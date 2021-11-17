@@ -2,16 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:photo_gallery/strings.dart';
 
 class MainPage extends StatefulWidget {
-  final Widget takePhotos;
-  final Widget showPhotos;
-  final Widget sendExistPhotos;
   final Widget login;
 
   const MainPage({
     Key? key,
-    required this.takePhotos,
-    required this.showPhotos,
-    required this.sendExistPhotos,
     required this.login,
   }) : super(key: key);
 
@@ -22,7 +16,6 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-    const SPACE_ELEM = SizedBox(height: 8);
     return Scaffold(
       appBar: AppBar(
         title: const Text(Strings.MAIN_TITLE),
@@ -30,19 +23,11 @@ class _MainPageState extends State<MainPage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
-          children:  [
-            widget.takePhotos,
-            SPACE_ELEM,
-            widget.showPhotos,
-            SPACE_ELEM,
-            widget.sendExistPhotos,
-            SPACE_ELEM,
+          children: [
             widget.login,
-            SPACE_ELEM,
           ],
         ),
       ),
     );
   }
-
 }

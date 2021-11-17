@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:photo_gallery/widget/camera_widget.dart';
+import 'package:photo_gallery/widgets/camera_main_widget.dart';
 import 'package:photo_gallery/strings.dart';
 
 class TakePhotoPage extends StatefulWidget {
@@ -17,7 +16,7 @@ class _TakePhotoPageState extends State<TakePhotoPage> {
       appBar: AppBar(
         title: const Text(Strings.TAKE_PHOTO_TITLE),
       ),
-      body: const CameraWidget(),
+      body: const CameraMainWidget(),
     );
   }
 }

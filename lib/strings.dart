@@ -11,7 +11,7 @@ class Strings {
   static const String SEND_PHOTOS_BTN = "Wyślij zdjęcia";
   static const String LOGIN_BTN = "Zaloguj";
 
-  // camera widget
+  // camera widgets
   static const String LOADING = "Ładuję";
   static const String EXPOSURE_MODE = "Tryb ekspozycji";
   static const String AUTO_EXPOSURE_MODE = "Automatyczny";
