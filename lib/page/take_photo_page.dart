@@ -14,7 +14,7 @@ class _TakePhotoPageState extends State<TakePhotoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(Strings.TAKE_PHOTO_TITLE),
+        title: const Text(Strings.MAIN_TITLE),
       ),
       body: const CameraMainWidget(),
     );
