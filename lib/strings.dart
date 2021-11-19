@@ -21,4 +21,8 @@ class Strings {
   static const String FOCUS_AUTO = "Automatyczny";
   static const String FOCUS_LOCKED = "Zachowaj";
   static const String FOCUS_MODE = "Tryb ostrości";
+
+  static const String send_photo_nav_bar = "Wyślij";
+  static const String galery_nav_bar = "Galeria";
+  static const String map_nav_bar = "Mapa";
 }

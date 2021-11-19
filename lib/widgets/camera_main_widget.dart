@@ -5,7 +5,10 @@ import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:photo_gallery/page/photo_page.dart';
+import 'package:photo_gallery/datas/address_information.dart';
+import 'package:photo_gallery/datas/location_position.dart';
+import 'package:photo_gallery/controllers/location_controller.dart';
+import 'package:photo_gallery/pages/photo_page.dart';
 import 'package:photo_gallery/strings.dart';
 import 'package:photo_gallery/styles.dart';
 import 'package:photo_gallery/utils/cameras_list.dart';
@@ -20,7 +23,8 @@ class CameraMainWidget extends StatefulWidget {
 class _CameraMainWidgetState extends State<CameraMainWidget>
     with WidgetsBindingObserver, TickerProviderStateMixin {
   bool _isCameraInit = false;
-  CameraController? _controller;
+  CameraController? _cameraController;
+  final LocationController _locationController = LocationController();
   final List<XFile> _photos = <XFile>[];
 
   late ResolutionPreset _currResolutionPreset = ResolutionPreset.high;
@@ -102,6 +106,7 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
       curve: Curves.easeInCubic,
     );
 
+    _locationController.initialize();
     _onNewCameraSelected(CamerasList.cameras[0]);
   }
 
@@ -116,7 +121,7 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    final CameraController cameraController = _controller!;
+    final CameraController cameraController = _cameraController!;
     if (!cameraController.value.isInitialized) {
       return;
     }
@@ -130,7 +135,7 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
 
   @override
   Widget build(BuildContext context) {
-    final CameraController cameraController = _controller!;
+    final CameraController cameraController = _cameraController!;
     return _isCameraInit
         ? Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -179,7 +184,7 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
   }
 
   Widget _cameraPreviewWidget() {
-    final CameraController cameraController = _controller!;
+    final CameraController cameraController = _cameraController!;
 
     return Listener(
       onPointerDown: (_) => _pointers++,
@@ -205,7 +210,7 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
   }
 
   Future<void> _handleScaleUpdate(ScaleUpdateDetails details) async {
-    final CameraController cameraController = _controller!;
+    final CameraController cameraController = _cameraController!;
     if (_pointers != 2) {
       return;
     }
@@ -217,7 +222,7 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
   }
 
   void onViewFinderTap(TapDownDetails details, BoxConstraints constraints) {
-    final CameraController cameraController = _controller!;
+    final CameraController cameraController = _cameraController!;
 
     final offset = Offset(
       details.localPosition.dx / constraints.maxWidth,
@@ -252,7 +257,7 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
   }
 
   Widget _cameraModeControlWidget() {
-    final CameraController cameraController = _controller!;
+    final CameraController cameraController = _cameraController!;
     return Padding(
       padding: const EdgeInsets.all(1.0),
       child: Row(
@@ -331,15 +336,15 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
 
   Future<void> _onNewCameraSelected(CameraDescription description) async {
     _isCameraInit = false;
-    if (_controller != null) {
-      await _controller!.dispose();
+    if (_cameraController != null) {
+      await _cameraController!.dispose();
     }
 
     final CameraController cameraController = CameraController(
         description, _currResolutionPreset,
-        imageFormatGroup: ImageFormatGroup.jpeg);
+        enableAudio: false, imageFormatGroup: ImageFormatGroup.jpeg);
 
-    _controller = cameraController;
+    _cameraController = cameraController;
 
     cameraController.addListener(() {
       if (mounted) setState(() {});
@@ -355,7 +360,8 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
   }
 
   Future<XFile?> takePhoto() async {
-    final CameraController cameraController = _controller!;
+    final CameraController cameraController = _cameraController!;
+
     if (cameraController.value.isTakingPicture) {
       return null;
     }
@@ -363,7 +369,18 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
     return photo;
   }
 
-  void _onTakePictureClick() {
+  void _onTakePictureClick() async {
+    final LocationController locationController = _locationController;
+
+    //**************************************************************************
+    // TODO: Only for testing. It should be remove in future!
+    LocationPosition pos = locationController.getLocation();
+    AddressInformation addr = locationController.getAddress();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text("pod: ${pos.toString()}\naddr: ${addr.toString()}"),
+    ));
+    //**************************************************************************
+
     takePhoto().then((XFile? file) {
       if (mounted) {
         setState(() {
@@ -376,7 +393,7 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
   }
 
   void _onFlipCameraClick() {
-    final CameraController cameraController = _controller!;
+    final CameraController cameraController = _cameraController!;
     for (var element in CamerasList.cameras) {
       if (cameraController.description.lensDirection != element.lensDirection) {
         _onNewCameraSelected(element);
@@ -386,7 +403,7 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
   }
 
   void _onCaptureOrientationClick() async {
-    final CameraController cameraController = _controller!;
+    final CameraController cameraController = _cameraController!;
     if (cameraController.value.isCaptureOrientationLocked) {
       await cameraController.unlockCaptureOrientation();
     } else {
@@ -395,7 +412,7 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
   }
 
   Widget _flashModeControlWidget() {
-    final CameraController cameraController = _controller!;
+    final CameraController cameraController = _cameraController!;
 
     Widget iconButton(IconData iconData, FlashMode flashMode) {
       return IconButton(
@@ -431,12 +448,12 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
   }
 
   Future<void> setFlashMode(flashMode) async {
-    final CameraController cameraController = _controller!;
+    final CameraController cameraController = _cameraController!;
     await cameraController.setFlashMode(flashMode);
   }
 
   Widget _exposureModeControlWidget() {
-    final CameraController cameraController = _controller!;
+    final CameraController cameraController = _cameraController!;
 
     TextButton buttonText(String text, ExposureMode exposureMode,
         VoidCallback? pressCallback, VoidCallback? longCallback) {
@@ -513,12 +530,12 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
   }
 
   Future<void> setExposureMode(ExposureMode mode) async {
-    final CameraController cameraController = _controller!;
+    final CameraController cameraController = _cameraController!;
     await cameraController.setExposureMode(mode);
   }
 
   Future<void> setExposureOffset(double offset) async {
-    final CameraController cameraController = _controller!;
+    final CameraController cameraController = _cameraController!;
     await cameraController.setExposureOffset(offset).then((_) {
       if (mounted) {
         setState(() {
@@ -529,7 +546,7 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
   }
 
   Widget _filterFocusModeWidget() {
-    final CameraController cameraController = _controller!;
+    final CameraController cameraController = _cameraController!;
 
     TextButton buttonText(
         String text, FocusMode focusMode, VoidCallback? longCallback) {
@@ -571,7 +588,7 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
   }
 
   Future<void> setFocusMode(FocusMode mode) async {
-    final CameraController cameraController = _controller!;
+    final CameraController cameraController = _cameraController!;
     await cameraController.setFocusMode(mode);
   }
 
@@ -617,7 +634,7 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
   }
 
   Future<void> setResolutionPreset(ResolutionPreset resolutionPreset) async {
-    final CameraController cameraController = _controller!;
+    final CameraController cameraController = _cameraController!;
     _currResolutionPreset = resolutionPreset;
     await _onNewCameraSelected(cameraController.description);
   }

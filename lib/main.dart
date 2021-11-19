@@ -1,6 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:photo_gallery/page/page_container.dart';
+import 'package:photo_gallery/pages/page_container.dart';
 import 'package:photo_gallery/strings.dart';
 import 'package:photo_gallery/styles.dart';
 import 'package:photo_gallery/utils/cameras_list.dart';

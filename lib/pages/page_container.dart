@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:photo_gallery/page/main_page.dart';
-import 'package:photo_gallery/page/take_photo_page.dart';
-import 'package:photo_gallery/strings.dart';
+import 'package:photo_gallery/pages/take_photo_page.dart';
+
 import 'package:photo_gallery/styles.dart';
 
 TextButton PageTextButton(BuildContext context, VoidCallback callback,
