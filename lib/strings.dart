@@ -3,7 +3,6 @@ import 'dart:core';
 class Strings {
   // page titles
   static const String MAIN_TITLE = "Galeria zdjęć";
-  static const String TAKE_PHOTO_TITLE = "Zrób zdjęcia";
 
   // button names
   static const String TAKE_PHOTO_BTN = "Zrób zdjęcia";
@@ -22,6 +21,7 @@ class Strings {
   static const String FOCUS_LOCKED = "Zachowaj";
   static const String FOCUS_MODE = "Tryb ostrości";
 
+  // Navigation widget
   static const String send_photo_nav_bar = "Wyślij";
   static const String galery_nav_bar = "Galeria";
   static const String map_nav_bar = "Mapa";
