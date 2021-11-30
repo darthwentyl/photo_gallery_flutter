@@ -4,6 +4,7 @@ import 'package:photo_gallery/datas/photo_information.dart';
 
 class PhotosList {
   final List<PhotoInformation> _photos = <PhotoInformation>[];
+  PhotoInformation? _selectedPhoto;
 
   void addPhoto(XFile photo, LocationPosition locationPosition) {
     _photos.add(
@@ -20,6 +21,17 @@ class PhotosList {
 
   int length() {
     return _photos.length;
+  }
+
+  void selectPhoto(int index) {
+    _selectedPhoto = _photos[index];
+  }
+
+  PhotoInformation? selectedPhoto() {
+    if (_selectedPhoto == null && _photos.isNotEmpty) {
+      _selectedPhoto = _photos.first;
+    }
+    return _selectedPhoto;
   }
 
   PhotoInformation operator [](int index) {

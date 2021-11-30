@@ -19,7 +19,7 @@ class PhotoListWidget extends StatefulWidget {
 class _PhotoListWidgetState extends State<PhotoListWidget> {
   @override
   Widget build(BuildContext context) {
-    double itemSize = calcuItemSize(context);
+    double itemSize = calcItemSize(context);
     return Container(
       height: itemSize,
       color: AppColor.cameraBackground,
@@ -60,7 +60,7 @@ class _PhotoListWidgetState extends State<PhotoListWidget> {
     );
   }
 
-  double calcuItemSize(BuildContext context) {
+  double calcItemSize(BuildContext context) {
     double itemSize = MediaQuery.of(context).size.height / 10;
     if (itemSize < 50.0) {
       itemSize = 50.0;

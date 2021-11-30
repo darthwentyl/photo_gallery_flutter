@@ -4,7 +4,10 @@ import 'package:photo_gallery/strings.dart';
 import 'package:photo_gallery/styles.dart';
 
 class PhotoBottomNavigationWidget extends StatefulWidget {
-  const PhotoBottomNavigationWidget({Key? key}) : super(key: key);
+  PhotoBottomNavigationWidget({Key? key, required this.callback})
+      : super(key: key);
+
+  void Function(int) callback;
 
   @override
   State<StatefulWidget> createState() => PhotoBottomNavigationState();
@@ -46,6 +49,7 @@ class PhotoBottomNavigationState extends State<PhotoBottomNavigationWidget> {
   void _onTap(int value) {
     setState(() {
       _currentIndex = value;
+      widget.callback(_currentIndex);
     });
   }
 }

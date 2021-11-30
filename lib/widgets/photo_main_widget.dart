@@ -67,6 +67,7 @@ class _PhotoMainWidget extends State<PhotoMainWidget> {
   void onSetImage(int index) {
     setState(() {
       _photoIndex = index;
+      _photoList.selectPhoto(index);
     });
   }
 }
