@@ -2,13 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_gallery/strings.dart';
 
-class PhotoBottomNavigationWidget extends StatelessWidget {
+class PhotoBottomNavigationWidget extends StatefulWidget {
   const PhotoBottomNavigationWidget({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => PhotoBottomNavigationState();
+}
+
+class PhotoBottomNavigationState extends State<PhotoBottomNavigationWidget> {
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      currentIndex: 0, // this will be set when a new tab is tapped
+      currentIndex: _currentIndex,
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.send_outlined),
@@ -23,6 +30,13 @@ class PhotoBottomNavigationWidget extends StatelessWidget {
           label: Strings.map_nav_bar,
         )
       ],
+      onTap: _onTap,
     );
+  }
+
+  void _onTap(int value) {
+    setState(() {
+      _currentIndex = value;
+    });
   }
 }
