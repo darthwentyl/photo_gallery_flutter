@@ -1,15 +1,15 @@
 import 'dart:io';
 
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:photo_gallery/styles.dart';
+import 'package:photo_gallery/utils/photos_list.dart';
 
 class PhotoListWidget extends StatefulWidget {
   PhotoListWidget({required this.photoList, required this.callback, Key? key})
       : super(key: key);
 
-  List<XFile> photoList;
+  PhotosList photoList;
   void Function(int) callback;
 
   @override
@@ -29,7 +29,7 @@ class _PhotoListWidgetState extends State<PhotoListWidget> {
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
           itemBuilder: (context, index) {
-            int idx = widget.photoList.length - index - 1;
+            int idx = widget.photoList.length() - index - 1;
             return InkWell(
               child: Container(
                 width: itemSize,
@@ -40,10 +40,11 @@ class _PhotoListWidgetState extends State<PhotoListWidget> {
                     width: 2,
                     color: AppColor.cameraBackground,
                   ),
-                  image: widget.photoList.isNotEmpty
+                  image: widget.photoList.isNotEmpty()
                       ? DecorationImage(
                           fit: BoxFit.fill,
-                          image: FileImage(File(widget.photoList[idx].path)),
+                          image:
+                              FileImage(File(widget.photoList[idx].photo.path)),
                         )
                       : null,
                 ),
@@ -53,7 +54,7 @@ class _PhotoListWidgetState extends State<PhotoListWidget> {
               },
             );
           },
-          itemCount: widget.photoList.length,
+          itemCount: widget.photoList.length(),
         ),
       ),
     );

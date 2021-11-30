@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_gallery/strings.dart';
+import 'package:photo_gallery/styles.dart';
 
 class PhotoBottomNavigationWidget extends StatefulWidget {
   const PhotoBottomNavigationWidget({Key? key}) : super(key: key);
@@ -18,16 +19,24 @@ class PhotoBottomNavigationState extends State<PhotoBottomNavigationWidget> {
       currentIndex: _currentIndex,
       items: const [
         BottomNavigationBarItem(
+          icon: Icon(Icons.enhance_photo_translate_outlined),
+          label: Strings.current_session,
+          backgroundColor: AppColor.iconBottomNavigationBackground,
+        ),
+        BottomNavigationBarItem(
           icon: Icon(Icons.send_outlined),
           label: Strings.send_photo_nav_bar,
+          backgroundColor: AppColor.iconBottomNavigationBackground,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.image_outlined),
           label: Strings.galery_nav_bar,
+          backgroundColor: AppColor.iconBottomNavigationBackground,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.map_outlined),
           label: Strings.map_nav_bar,
+          backgroundColor: AppColor.iconBottomNavigationBackground,
         )
       ],
       onTap: _onTap,

@@ -19,4 +19,5 @@ class AppColor extends Color {
   static const unselectMode = Colors.black;
 
   static const galleryBackground = Colors.white;
+  static const iconBottomNavigationBackground = Colors.black;
 }

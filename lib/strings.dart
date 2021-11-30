@@ -25,4 +25,5 @@ class Strings {
   static const String send_photo_nav_bar = "Wyślij";
   static const String galery_nav_bar = "Galeria";
   static const String map_nav_bar = "Mapa";
+  static const String current_session = "Bieżąca sesja";
 }

@@ -12,6 +12,7 @@ import 'package:photo_gallery/pages/photo_page.dart';
 import 'package:photo_gallery/strings.dart';
 import 'package:photo_gallery/styles.dart';
 import 'package:photo_gallery/utils/cameras_list.dart';
+import 'package:photo_gallery/utils/photos_list.dart';
 
 class CameraMainWidget extends StatefulWidget {
   const CameraMainWidget({Key? key}) : super(key: key);
@@ -25,7 +26,7 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
   bool _isCameraInit = false;
   CameraController? _cameraController;
   final LocationController _locationController = LocationController();
-  final List<XFile> _photos = <XFile>[];
+  final PhotosList _photos = PhotosList();
 
   late ResolutionPreset _currResolutionPreset = ResolutionPreset.high;
 
@@ -304,10 +305,10 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
                 height: 60,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  image: _photos.isNotEmpty
+                  image: _photos.isNotEmpty()
                       ? DecorationImage(
                           fit: BoxFit.fill,
-                          image: FileImage(File(_photos.last.path)),
+                          image: FileImage(File(_photos.getLastPath())),
                         )
                       : null,
                 ),
@@ -372,20 +373,13 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
   void _onTakePictureClick() async {
     final LocationController locationController = _locationController;
 
-    //**************************************************************************
-    // TODO: Only for testing. It should be remove in future!
     LocationPosition pos = locationController.getLocation();
-    AddressInformation addr = locationController.getAddress();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text("pod: ${pos.toString()}\naddr: ${addr.toString()}"),
-    ));
-    //**************************************************************************
 
     takePhoto().then((XFile? file) {
       if (mounted) {
         setState(() {
           if (file != null) {
-            _photos.add(file);
+            _photos.addPhoto(file, pos);
           }
         });
       }
@@ -694,7 +688,7 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
   }
 
   _onShowPictures() {
-    if (_photos.isNotEmpty) {
+    if (_photos.isNotEmpty()) {
       Navigator.push(
         context,
         MaterialPageRoute(

@@ -1,16 +1,15 @@
 import 'dart:io';
 
-import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:photo_gallery/strings.dart';
-import 'package:photo_gallery/styles.dart';
+import 'package:photo_gallery/utils/photos_list.dart';
 import 'package:photo_gallery/widgets/photo_list_widget.dart';
 import 'package:photo_gallery/widgets/photo_preview_widget.dart';
 
 class PhotoMainWidget extends StatefulWidget {
-  final List<XFile> photoList;
+  final PhotosList photoList;
 
   const PhotoMainWidget({
     required this.photoList,
@@ -24,7 +23,7 @@ class PhotoMainWidget extends StatefulWidget {
 
 class _PhotoMainWidget extends State<PhotoMainWidget> {
   bool _isInit = false;
-  late List<XFile> _photoList;
+  late PhotosList _photoList;
   int _photoIndex = 0;
 
   @override
@@ -32,7 +31,7 @@ class _PhotoMainWidget extends State<PhotoMainWidget> {
     super.initState();
     _isInit = false;
     _photoList = widget.photoList;
-    _photoIndex = _photoList.length - 1;
+    _photoIndex = _photoList.length() - 1;
     setState(() {
       _isInit = true;
     });
@@ -50,7 +49,7 @@ class _PhotoMainWidget extends State<PhotoMainWidget> {
                 callback: onSetImage,
               ),
               PhotoPreviewWidget(
-                  image: FileImage(File(_photoList[_photoIndex].path))),
+                  image: FileImage(File(_photoList[_photoIndex].photo.path))),
             ],
           )
         : Center(
