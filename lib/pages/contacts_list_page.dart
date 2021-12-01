@@ -15,7 +15,7 @@ class ContactsListPage extends StatefulWidget {
 
 class ContactsListState extends State<ContactsListPage>
     with AfterLayoutMixin<ContactsListPage> {
-  late List<Contact> _contacts;
+  List<Contact> _contacts = <Contact>[];
   late Function(ContactInformation) _callback;
   bool _isInit = false;
 
@@ -51,7 +51,7 @@ class ContactsListState extends State<ContactsListPage>
   }
 
   Widget _body() {
-    if (_contacts == null && !_isInit) {
+    if (!_isInit || _contacts.isEmpty) {
       return const Center(child: CircularProgressIndicator());
     }
     return ListView.builder(

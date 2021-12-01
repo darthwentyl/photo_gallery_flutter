@@ -2,8 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_contacts/contact.dart';
-import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:mms/mms.dart';
 import 'package:photo_gallery/datas/contact_information.dart';
 import 'package:photo_gallery/datas/photo_information.dart';
@@ -19,18 +17,29 @@ class ContactWidget extends StatefulWidget {
 }
 
 class _ContactState extends State<ContactWidget> {
+  late ContactInformation _contactInformation;
+
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
-        IconButton(
-            onPressed: _openContactList,
-            icon: const Icon(Icons.contacts_outlined)),
+        Row(
+          children: [
+            IconButton(
+                onPressed: _openContactList,
+                icon: const Icon(Icons.contacts_outlined)),
+            IconButton(
+                onPressed: _sendMessage, icon: const Icon(Icons.mms_outlined)),
+          ],
+        ),
+        const Center(
+          child: Text('Feature will be avaiable in future.'),
+        ),
       ],
     );
   }
 
-  void _openContactList() async {
+  void _openContactList() {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -42,9 +51,15 @@ class _ContactState extends State<ContactWidget> {
 
   void _selectPhoneNumber(ContactInformation contactInformation) {
     setState(() {
-      print("${widget.photo.photo.path}|${contactInformation.tel_num}");
-      Mms().sendVideo(
-          File(widget.photo.photo.path).path, [contactInformation.tel_num]);
+      _contactInformation = contactInformation;
     });
+  }
+
+  void _sendMessage() {
+    print("${widget.photo.photo.path}|${_contactInformation.tel_num}");
+    // TODO: It does not work. It seems mms plugin does not support photo
+    //  sending. Probably it should be resolved sending url to data base like
+    //  firebase. This issue will be resolved in future.
+    Mms().sendVideo(widget.photo.photo.path, [_contactInformation.tel_num]);
   }
 }
