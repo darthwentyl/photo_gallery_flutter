@@ -5,7 +5,6 @@ import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:photo_gallery/datas/address_information.dart';
 import 'package:photo_gallery/datas/location_position.dart';
 import 'package:photo_gallery/controllers/location_controller.dart';
 import 'package:photo_gallery/pages/photo_page.dart';

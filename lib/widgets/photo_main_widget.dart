@@ -42,7 +42,7 @@ class _PhotoMainWidget extends State<PhotoMainWidget> {
     return _isInit
         ? Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               PhotoListWidget(
                 photoList: _photoList,

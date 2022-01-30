@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mms/mms.dart';
+// import 'package:mms/mms.dart';
 import 'package:photo_gallery/datas/contact_information.dart';
 import 'package:photo_gallery/datas/photo_information.dart';
 import 'package:photo_gallery/pages/contacts_list_page.dart';
@@ -60,6 +60,6 @@ class _ContactState extends State<ContactWidget> {
     // TODO: It does not work. It seems mms plugin does not support photo
     //  sending. Probably it should be resolved sending url to data base like
     //  firebase. This issue will be resolved in future.
-    Mms().sendVideo(widget.photo.photo.path, [_contactInformation.tel_num]);
+    // Mms().sendVideo(widget.photo.photo.path, [_contactInformation.tel_num]);
   }
 }
