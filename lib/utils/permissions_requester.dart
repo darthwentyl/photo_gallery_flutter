@@ -8,12 +8,9 @@ class PermissionsRequester {
     Map<Permission, PermissionStatus> statuses = await [
       Permission.camera,
       Permission.location,
-      Permission.sms,
-      Permission.contacts
     ].request();
 
     statuses.forEach((key, status) async {
-      print("[mw] key: $key; status: $status");
       switch (status) {
         case PermissionStatus.permanentlyDenied:
         case PermissionStatus.denied:

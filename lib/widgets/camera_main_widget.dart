@@ -49,6 +49,8 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
 
   int _pointers = 0; // count fingers
 
+  ExposureMode _exposureMode = ExposureMode.auto;
+
   static IconButton cameraIconButton(IconData iconData, VoidCallback? callback,
       {Color color = AppColor.cameraIconColor, double size = 24.0}) {
     return IconButton(
@@ -503,8 +505,9 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
                     max: _maxAvailableExposureOffset,
                     label: _currentExposureOffset.toStringAsFixed(2),
                     divisions: sliderDivision > 0 ? sliderDivision : null,
-                    onChanged: _minAvailableExposureOffset ==
-                            _maxAvailableExposureOffset
+                    onChanged: (_minAvailableExposureOffset ==
+                                _maxAvailableExposureOffset ||
+                            _exposureMode == ExposureMode.auto)
                         ? null
                         : setExposureOffset),
                 Text(_maxAvailableExposureOffset.toString()),
@@ -518,7 +521,10 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
 
   void onSetExposureModeButtonPressed(ExposureMode mode) {
     setExposureMode(mode).then((_) {
-      if (mounted) setState(() {});
+      if (mounted)
+        setState(() {
+          _exposureMode = mode;
+        });
     });
   }
 
@@ -529,13 +535,16 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
 
   Future<void> setExposureOffset(double offset) async {
     final CameraController cameraController = _cameraController!;
-    await cameraController.setExposureOffset(offset).then((_) {
-      if (mounted) {
-        setState(() {
-          _currentExposureOffset = offset;
-        });
-      }
+    setState(() {
+      _currentExposureOffset = offset;
     });
+    // TODO: setExposureOffset throw nullable exception but if it ignores that
+    // TODO: all work fine
+    try {
+      offset = await cameraController.setExposureOffset(offset);
+    } on CameraException catch (e) {
+      print('Ignore exception!!!');
+    }
   }
 
   Widget _filterFocusModeWidget() {
