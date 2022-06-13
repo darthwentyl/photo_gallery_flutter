@@ -7,6 +7,7 @@ class PhotosList {
   PhotoInformation? _selectedPhoto;
 
   void addPhoto(XFile photo, LocationPosition locationPosition) {
+    print('[mw] ${locationPosition.toString()}');
     _photos.add(
         PhotoInformation(photo: photo, locationPosition: locationPosition));
   }

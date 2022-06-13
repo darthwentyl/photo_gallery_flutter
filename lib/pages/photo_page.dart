@@ -4,7 +4,6 @@ import 'package:photo_gallery/strings.dart';
 import 'package:photo_gallery/utils/photos_list.dart';
 import 'package:photo_gallery/widgets/gallery_main_widget.dart';
 import 'package:photo_gallery/widgets/map_main_widget.dart';
-import 'package:photo_gallery/widgets/mms_main_widget.dart';
 import 'package:photo_gallery/widgets/photo_bottom_navigation_widget.dart';
 import 'package:photo_gallery/widgets/photo_main_widget.dart';
 
@@ -65,10 +64,8 @@ class _PhotoPageState extends State<PhotoPage> {
       case 0:
         return PhotoMainWidget(photoList: _photoList);
       case 1:
-        return MmsWidget(photo: _photoList.selectedPhoto()!);
-      case 2:
         return GalleryMainWidget();
-      case 3:
+      case 2:
         return MapMainWidget();
       default:
         return PhotoMainWidget(photoList: _photoList);

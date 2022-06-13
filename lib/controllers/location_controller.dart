@@ -7,24 +7,16 @@ class LocationController {
   final LocationPosition _position = LocationPosition();
   final AddressInformation _addressInformation = AddressInformation();
 
-  bool _isInitialize = false;
   bool _serviceEnabled = false;
   PermissionStatus _permissionGranted = PermissionStatus.denied;
 
   Future<void> initialize() async {
-    if (_isInitialize) {
-      return;
-    }
-    await _checkServiceEnabled();
-    await _checkPermissionGranted();
-
     await _location.changeSettings(interval: 60000);
     _location.onLocationChanged.listen((locationData) {
+      print('[mw] ${_position.toString()}');
       _position.setPosition(locationData);
       _addressInformation.setAddress(_position);
     });
-
-    _isInitialize = true;
   }
 
   LocationPosition getLocation() {

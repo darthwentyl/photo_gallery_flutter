@@ -27,11 +27,6 @@ class PhotoBottomNavigationState extends State<PhotoBottomNavigationWidget> {
           backgroundColor: AppColor.iconBottomNavigationBackground,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.send_outlined),
-          label: Strings.send_photo_nav_bar,
-          backgroundColor: AppColor.iconBottomNavigationBackground,
-        ),
-        BottomNavigationBarItem(
           icon: Icon(Icons.image_outlined),
           label: Strings.galery_nav_bar,
           backgroundColor: AppColor.iconBottomNavigationBackground,
