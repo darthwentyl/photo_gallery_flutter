@@ -3,43 +3,75 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:photo_gallery/datas/location_position.dart';
+import 'package:photo_gallery/utils/photos_list.dart';
+import 'package:photo_gallery/strings.dart';
 
-class MapMainWidget extends StatelessWidget {
-  Completer<GoogleMapController> _controller = Completer();
+class MapMainStatefulWidget extends StatefulWidget {
+  MapMainStatefulWidget({Key? key, required this.photoList}) : super(key: key);
+  PhotosList photoList;
 
-  // TODO: it should be remove!!! The data will go from image
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
+  @override
+  State<StatefulWidget> createState() => _MapMainStateWidget();
+}
 
-  static final CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
-  // TODO: end
+class _MapMainStateWidget extends State<MapMainStatefulWidget> {
+  final Completer<GoogleMapController> _googleMapController = Completer();
+  bool _isInit = false;
+  late PhotosList _photoList;
+
+  @override
+  void initState() {
+    _photoList = widget.photoList;
+    setState(() {
+      _isInit = true;
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GoogleMap(
-        mapType: MapType.hybrid,
-        initialCameraPosition: _kGooglePlex,
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _goToTheLake,
-        label: Text('To the lake!'),
-        icon: Icon(Icons.directions_boat),
-      ),
-    );
+    // TODO: it is dangerous, you promise that the photo exist
+    LocationPosition position = _photoList.selectedPhoto()!.locationPosition;
+    return _isInit
+        ? Scaffold(
+            body: GoogleMap(
+              mapType: MapType.hybrid,
+              initialCameraPosition: CameraPosition(
+                target: LatLng(position.latitude, position.longitude),
+                zoom: 14.0,
+              ),
+              onMapCreated: (GoogleMapController controller) {
+                _googleMapController.complete(controller);
+              },
+            ),
+            floatingActionButton: FloatingActionButton.extended(
+              onPressed: _goToPlace,
+              label: const Text('go to place'),
+              icon: const Icon(Icons.directions_boat),
+            ),
+          )
+        : Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                CircularProgressIndicator(),
+                Text(Strings.LOADING),
+              ],
+            ),
+          );
   }
 
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+  Future<void> _goToPlace() async {
+    final GoogleMapController controller = await _googleMapController.future;
+    // TODO: it is dangerous, you promise that the photo exist
+    LocationPosition position = _photoList.selectedPhoto()!.locationPosition;
+    CameraPosition _place = CameraPosition(
+        bearing: 190.0,
+        target: LatLng(position.latitude, position.longitude),
+        tilt: 60.0,
+        zoom: 20.0);
+    controller.animateCamera(CameraUpdate.newCameraPosition(_place));
   }
 }

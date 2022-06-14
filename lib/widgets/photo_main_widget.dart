@@ -16,9 +16,7 @@ class PhotoMainWidget extends StatefulWidget {
   });
 
   @override
-  State<StatefulWidget> createState() {
-    return _PhotoMainWidget();
-  }
+  State<StatefulWidget> createState() => _PhotoMainWidget();
 }
 
 class _PhotoMainWidget extends State<PhotoMainWidget> {
