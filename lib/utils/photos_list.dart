@@ -1,15 +1,21 @@
 import 'package:camera/camera.dart';
+import 'package:photo_gallery/controllers/file_controllers.dart';
 import 'package:photo_gallery/datas/location_position.dart';
 import 'package:photo_gallery/datas/photo_information.dart';
 
 class PhotosList {
   final List<PhotoInformation> _photos = <PhotoInformation>[];
   PhotoInformation? _selectedPhoto;
+  final FileController _fileController = FileController();
 
   void addPhoto(XFile photo, LocationPosition locationPosition) {
-    print('[mw] ${locationPosition.toString()}');
     _photos.add(
         PhotoInformation(photo: photo, locationPosition: locationPosition));
+    try {
+      _fileController.writeToExternalStorage(_photos.last);
+    } on Exception catch (e) {
+      print('[mw] ${e}');
+    }
   }
 
   bool isNotEmpty() {

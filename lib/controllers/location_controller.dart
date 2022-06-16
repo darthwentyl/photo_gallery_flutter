@@ -13,7 +13,6 @@ class LocationController {
   Future<void> initialize() async {
     await _location.changeSettings(interval: 60000);
     _location.onLocationChanged.listen((locationData) {
-      print('[mw] ${_position.toString()}');
       _position.setPosition(locationData);
       _addressInformation.setAddress(_position);
     });

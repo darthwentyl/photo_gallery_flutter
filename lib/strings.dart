@@ -26,4 +26,8 @@ class Strings {
   static const String galery_nav_bar = "Galeria";
   static const String map_nav_bar = "Mapa";
   static const String current_session = "Bieżąca sesja";
+
+  // File controlle
+  static const String external_storage_directory_not_exist =
+      "Brak zewnętznej pamięci";
 }
