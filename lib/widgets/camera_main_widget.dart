@@ -306,6 +306,8 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
                 height: 60,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
+                  border: Border.all(
+                      color: AppColor.cameraBoxDecorationBorder, width: 1.25),
                   image: _photos.isNotEmpty()
                       ? DecorationImage(
                           fit: BoxFit.fill,
@@ -413,8 +415,8 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
       return IconButton(
           icon: Icon(iconData),
           color: cameraController.value.flashMode == flashMode
-              ? AppColor.selectMode
-              : AppColor.unselectMode,
+              ? AppColor.cameraSelectMode
+              : AppColor.cameraUnselectMode,
           onPressed: () => onSetFlashModeButtonPressed(flashMode));
     }
 
@@ -456,8 +458,8 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
           child: Text(text),
           style: TextButton.styleFrom(
             primary: cameraController.value.exposureMode == exposureMode
-                ? AppColor.selectMode
-                : AppColor.unselectMode,
+                ? AppColor.cameraSelectMode
+                : AppColor.cameraUnselectMode,
           ),
           onPressed: pressCallback ??
               () => onSetExposureModeButtonPressed(exposureMode),
@@ -556,8 +558,8 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
           child: Text(text),
           style: TextButton.styleFrom(
             primary: cameraController.value.focusMode == focusMode
-                ? AppColor.selectMode
-                : AppColor.unselectMode,
+                ? AppColor.cameraSelectMode
+                : AppColor.cameraUnselectMode,
           ),
           onPressed: () => onSetFocusModeButtonPressed(focusMode),
           onLongPress: longCallback);
@@ -606,8 +608,8 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
         child: Text(text),
         style: TextButton.styleFrom(
           primary: resolutionPreset == _currResolutionPreset
-              ? AppColor.selectMode
-              : AppColor.unselectMode,
+              ? AppColor.cameraSelectMode
+              : AppColor.cameraUnselectMode,
         ),
         onPressed: () => onSetResolutionPreset(resolutionPreset),
       );

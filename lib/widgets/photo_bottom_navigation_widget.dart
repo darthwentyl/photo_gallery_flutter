@@ -20,6 +20,8 @@ class PhotoBottomNavigationState extends State<PhotoBottomNavigationWidget> {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       currentIndex: _currentIndex,
+      selectedItemColor: AppColor.iconBottomNavigationSelect,
+      unselectedItemColor: AppColor.iconBottomNavigationUnselect,
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.enhance_photo_translate_outlined),

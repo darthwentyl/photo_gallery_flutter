@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:photo_gallery/datas/location_position.dart';
+import 'package:photo_gallery/styles.dart';
 import 'package:photo_gallery/utils/photos_list.dart';
 import 'package:photo_gallery/strings.dart';
 
@@ -33,6 +36,7 @@ class _MapMainStateWidget extends State<MapMainStatefulWidget> {
   Widget build(BuildContext context) {
     // TODO: it is dangerous, you promise that the photo exist
     LocationPosition position = _photoList.selectedPhoto()!.locationPosition;
+    XFile photo = _photoList.selectedPhoto()!.photo;
     return _isInit
         ? Scaffold(
             body: GoogleMap(
@@ -45,10 +49,22 @@ class _MapMainStateWidget extends State<MapMainStatefulWidget> {
                 _googleMapController.complete(controller);
               },
             ),
-            floatingActionButton: FloatingActionButton.extended(
-              onPressed: _goToPlace,
-              label: const Text('go to place'),
-              icon: const Icon(Icons.directions_boat),
+            floatingActionButton: InkWell(
+              child: Container(
+                width: 120,
+                height: 120,
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  border: Border.all(
+                      color: AppColor.googleMapfloatingActionButton,
+                      width: 1.25),
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: FileImage(File(photo.path)),
+                  ),
+                ),
+              ),
+              onTap: () => _goToPlace(),
             ),
           )
         : Center(
