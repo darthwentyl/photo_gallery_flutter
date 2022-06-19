@@ -14,6 +14,7 @@ class AppColor extends Color {
   static const cameraControlColor = Colors.white54;
   static const cameraZoomBackground = Colors.black87;
   static const cameraBackground = Colors.black;
+  static const cameraBackgroundSelectImage = Colors.white;
   static const cameraSelectMode = Colors.black;
   static const cameraUnselectMode = Colors.grey;
   static const cameraBoxDecorationBorder = Colors.white;
@@ -25,4 +26,6 @@ class AppColor extends Color {
   static const iconBottomNavigationUnselect = Colors.grey;
 
   static const googleMapfloatingActionButton = Colors.white;
+
+  static const galleryDirsCardViewBorder = Colors.black;
 }

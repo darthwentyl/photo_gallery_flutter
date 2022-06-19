@@ -14,7 +14,7 @@ class LocationPosition {
   }
 
   String formatString() {
-    return "${latitude}_${longitude}_";
+    return "${latitude}_${longitude}";
   }
 
   @override

@@ -12,9 +12,9 @@ class PhotoInformation {
   LocationPosition locationPosition;
 
   String formatString() {
-    DateTime now = new DateTime.now();
+    DateTime now = DateTime.now();
     DateFormat formatter = DateFormat('yyyy_MM_dd_hh_mm_ss');
     String formattedDate = formatter.format(now);
-    return '${locationPosition.formatString()}$formattedDate';
+    return '${formattedDate}_${locationPosition.formatString()}';
   }
 }

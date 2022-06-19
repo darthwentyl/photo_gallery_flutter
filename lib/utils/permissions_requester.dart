@@ -8,6 +8,7 @@ class PermissionsRequester {
     Map<Permission, PermissionStatus> statuses = await [
       Permission.camera,
       Permission.location,
+      Permission.storage,
     ].request();
 
     statuses.forEach((key, status) async {

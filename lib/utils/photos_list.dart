@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:photo_gallery/controllers/file_controllers.dart';
+import 'package:photo_gallery/datas/address_information.dart';
 import 'package:photo_gallery/datas/location_position.dart';
 import 'package:photo_gallery/datas/photo_information.dart';
 
@@ -8,13 +9,14 @@ class PhotosList {
   PhotoInformation? _selectedPhoto;
   final FileController _fileController = FileController();
 
-  void addPhoto(XFile photo, LocationPosition locationPosition) {
+  void addPhoto(XFile photo, LocationPosition locationPosition,
+      AddressInformation address) {
     _photos.add(
         PhotoInformation(photo: photo, locationPosition: locationPosition));
     try {
-      _fileController.writeToExternalStorage(_photos.last);
+      _fileController.writeToExternalStorage(_photos.last, address);
     } on Exception catch (e) {
-      print('[mw] ${e}');
+      // ignore exception
     }
   }
 

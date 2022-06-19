@@ -5,6 +5,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:photo_gallery/datas/address_information.dart';
 import 'package:photo_gallery/datas/location_position.dart';
 import 'package:photo_gallery/controllers/location_controller.dart';
 import 'package:photo_gallery/pages/photo_page.dart';
@@ -377,12 +378,13 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
     final LocationController locationController = _locationController;
 
     LocationPosition pos = locationController.getLocation();
+    AddressInformation address = locationController.getAddress();
 
     takePhoto().then((XFile? file) {
       if (mounted) {
         setState(() {
           if (file != null) {
-            _photos.addPhoto(file, pos);
+            _photos.addPhoto(file, pos, address);
           }
         });
       }

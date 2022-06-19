@@ -27,7 +27,12 @@ class Strings {
   static const String map_nav_bar = "Mapa";
   static const String current_session = "Bieżąca sesja";
 
-  // File controlle
+  // File controller
   static const String external_storage_directory_not_exist =
       "Brak zewnętznej pamięci";
+
+  // Gallery directories card view
+  static const String gallery_dirs_card_view_city = 'miasto';
+  static const String gallery_dirs_card_item_count = 'liczba zdjęć';
+  static const String gallery_dirs_card_last_item_date = 'ostatnie zdjęcie';
 }

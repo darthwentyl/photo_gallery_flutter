@@ -64,7 +64,7 @@ class _PhotoPageState extends State<PhotoPage> {
       case 0:
         return PhotoMainWidget(photoList: _photoList);
       case 1:
-        return GalleryMainWidget();
+        return GalleryMainWidgetStateful();
       case 2:
         return MapMainStatefulWidget(photoList: _photoList);
       default:
