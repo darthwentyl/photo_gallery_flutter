@@ -10,6 +10,8 @@ import 'package:photo_gallery/styles.dart';
 import 'package:photo_gallery/utils/photos_list.dart';
 import 'package:photo_gallery/strings.dart';
 
+import 'loading_widget.dart';
+
 class MapMainStatefulWidget extends StatefulWidget {
   MapMainStatefulWidget({Key? key, required this.photoList}) : super(key: key);
   PhotosList photoList;
@@ -67,16 +69,7 @@ class _MapMainStateWidget extends State<MapMainStatefulWidget> {
               onTap: () => _goToPlace(),
             ),
           )
-        : Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                CircularProgressIndicator(),
-                Text(Strings.LOADING),
-              ],
-            ),
-          );
+        : const LoadingWidget();
   }
 
   Future<void> _goToPlace() async {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:photo_gallery/strings.dart';
 import 'package:photo_gallery/utils/photos_list.dart';
 import 'package:photo_gallery/widgets/gallery_main_widget.dart';
+import 'package:photo_gallery/widgets/loading_widget.dart';
 import 'package:photo_gallery/widgets/map_main_widget.dart';
 import 'package:photo_gallery/widgets/photo_bottom_navigation_widget.dart';
 import 'package:photo_gallery/widgets/photo_main_widget.dart';
@@ -41,16 +42,7 @@ class _PhotoPageState extends State<PhotoPage> {
             bottomNavigationBar:
                 PhotoBottomNavigationWidget(callback: _onSetNavAction),
           )
-        : Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                CircularProgressIndicator(),
-                Text(Strings.LOADING),
-              ],
-            ),
-          );
+        : const LoadingWidget();
   }
 
   void _onSetNavAction(int index) {

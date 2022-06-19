@@ -14,6 +14,8 @@ import 'package:photo_gallery/styles.dart';
 import 'package:photo_gallery/utils/cameras_list.dart';
 import 'package:photo_gallery/utils/photos_list.dart';
 
+import 'loading_widget.dart';
+
 class CameraMainWidget extends StatefulWidget {
   const CameraMainWidget({Key? key}) : super(key: key);
 
@@ -174,16 +176,7 @@ class _CameraMainWidgetState extends State<CameraMainWidget>
               ),
             ],
           )
-        : Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                CircularProgressIndicator(),
-                Text(Strings.LOADING),
-              ],
-            ),
-          );
+        : const LoadingWidget();
   }
 
   Widget _cameraPreviewWidget() {

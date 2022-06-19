@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:photo_gallery/controllers/file_controllers.dart';
 import 'package:photo_gallery/styles.dart';
 import 'package:photo_gallery/strings.dart';
+import 'package:photo_gallery/widgets/loading_widget.dart';
 
 class GalleryDirsCardViewStateful extends StatefulWidget {
   GalleryDirsCardViewStateful(
@@ -90,16 +91,7 @@ class _GalleryDirsCardViewState extends State<GalleryDirsCardViewStateful> {
               ),
             ),
           )
-        : Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                CircularProgressIndicator(),
-                Text(Strings.LOADING),
-              ],
-            ),
-          );
+        : const LoadingWidget();
   }
 
   Padding _buildPadding(String name, String description, double fontSize) {

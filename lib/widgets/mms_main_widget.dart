@@ -5,6 +5,8 @@ import 'package:photo_gallery/datas/photo_information.dart';
 import 'package:photo_gallery/strings.dart';
 import 'package:photo_gallery/widgets/contact_widget.dart';
 
+import 'loading_widget.dart';
+
 class MmsWidget extends StatefulWidget {
   MmsWidget({Key? key, required this.photo}) : super(key: key);
 
@@ -38,16 +40,7 @@ class MmsState extends State<MmsWidget> {
         ],
       );
     } else {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: const [
-            CircularProgressIndicator(),
-            Text(Strings.LOADING),
-          ],
-        ),
-      );
+      return const LoadingWidget();
     }
   }
 }

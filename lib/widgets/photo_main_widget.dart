@@ -8,6 +8,8 @@ import 'package:photo_gallery/utils/photos_list.dart';
 import 'package:photo_gallery/widgets/photo_list_widget.dart';
 import 'package:photo_gallery/widgets/photo_preview_widget.dart';
 
+import 'loading_widget.dart';
+
 class PhotoMainWidget extends StatefulWidget {
   final PhotosList photoList;
 
@@ -50,16 +52,7 @@ class _PhotoMainWidget extends State<PhotoMainWidget> {
                   image: FileImage(File(_photoList[_photoIndex].photo.path))),
             ],
           )
-        : Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                CircularProgressIndicator(),
-                Text(Strings.LOADING),
-              ],
-            ),
-          );
+        : const LoadingWidget();
   }
 
   void onSetImage(int index) {

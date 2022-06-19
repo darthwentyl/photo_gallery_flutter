@@ -7,6 +7,7 @@ import 'package:photo_gallery/strings.dart';
 import 'package:photo_gallery/widgets/gallery_dir_widget.dart';
 
 import 'cards/gallery_dirs_card_view.dart';
+import 'loading_widget.dart';
 
 class GalleryDirsListViewWidgetStateful extends StatefulWidget {
   const GalleryDirsListViewWidgetStateful({Key? key}) : super(key: key);
@@ -46,16 +47,7 @@ class _GalleryDirsListViewWidgetState
               ),
             ],
           ))
-        : Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                CircularProgressIndicator(),
-                Text(Strings.LOADING),
-              ],
-            ),
-          );
+        : const LoadingWidget();
   }
 
   void onTapCallback(int idx) {
