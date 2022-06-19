@@ -35,4 +35,5 @@ class Strings {
   static const String gallery_dirs_card_view_city = 'miasto';
   static const String gallery_dirs_card_item_count = 'liczba zdjęć';
   static const String gallery_dirs_card_last_item_date = 'ostatnie zdjęcie';
+  static const String gallery_bottom_navigation_delete = 'usuń';
 }

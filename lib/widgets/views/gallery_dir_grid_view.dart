@@ -6,21 +6,27 @@ import 'package:photo_gallery/styles.dart';
 
 class GalleryDirGridViewStateful extends StatefulWidget {
   GalleryDirGridViewStateful(
-      {Key? key, required this.file, required this.index})
+      {Key? key,
+      required this.file,
+      required this.index,
+      required this.callback})
       : super(key: key);
 
   File file;
   int index;
-
+  void Function(int) callback;
   @override
   State<StatefulWidget> createState() => _GalleryDirGridViewState();
 }
 
 class _GalleryDirGridViewState extends State<GalleryDirGridViewStateful> {
+  final double _fontSize = 15;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        widget.callback(widget.index);
+      },
       child: Stack(
         children: [
           Container(
@@ -39,16 +45,16 @@ class _GalleryDirGridViewState extends State<GalleryDirGridViewStateful> {
               Text(
                 _getDate(),
                 style: TextStyle(
-                    fontSize: 10,
+                    fontSize: _fontSize,
                     foreground: Paint()
                       ..style = PaintingStyle.stroke
-                      ..strokeWidth = 2
+                      ..strokeWidth = 5
                       ..color = AppColor.galleryDirGridViewStrokeFont),
               ),
               Text(
                 _getDate(),
-                style: const TextStyle(
-                  fontSize: 10,
+                style: TextStyle(
+                  fontSize: _fontSize,
                   color: AppColor.galleryDirGridViewFont,
                 ),
               ),

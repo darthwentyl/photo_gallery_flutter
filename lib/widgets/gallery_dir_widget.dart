@@ -7,6 +7,7 @@ import 'package:photo_gallery/strings.dart';
 import 'package:photo_gallery/styles.dart';
 import 'package:photo_gallery/widgets/loading_widget.dart';
 
+import 'gallery_image_view.dart';
 import 'views/gallery_dir_grid_view.dart';
 
 class GalleryDirWidgetStateful extends StatefulWidget {
@@ -53,6 +54,7 @@ class _GalleryDirWidgetState extends State<GalleryDirWidgetStateful> {
                         return GalleryDirGridViewStateful(
                           file: _fileList[index],
                           index: index,
+                          callback: onTapItem,
                         );
                       },
                     ),
@@ -62,6 +64,19 @@ class _GalleryDirWidgetState extends State<GalleryDirWidgetStateful> {
             )
           : const LoadingWidget(),
       backgroundColor: AppColor.galleryDirsCardViewBackground,
+    );
+  }
+
+  void onTapItem(int index) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => GalleryImageViewStatefulWidget(
+          fileList: _fileList,
+          selectIndex: index,
+        ),
+        fullscreenDialog: true,
+      ),
     );
   }
 
