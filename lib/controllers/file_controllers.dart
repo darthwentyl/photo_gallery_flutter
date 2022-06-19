@@ -19,7 +19,6 @@ class FileController {
     }
 
     String path = await _getFilePath(image, address);
-
     File xFile = File(image.photo.path);
     File file = File(path);
 

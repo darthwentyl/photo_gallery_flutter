@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_gallery/controllers/file_controllers.dart';
 import 'package:photo_gallery/strings.dart';
+import 'package:photo_gallery/widgets/gallery_dir_widget.dart';
 
 import 'cards/gallery_dirs_card_view.dart';
 
@@ -34,12 +35,15 @@ class _GalleryDirsListViewWidgetState
             children: [
               Expanded(
                 child: ListView.builder(
-                    itemCount: _directoryList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return GalleryDirsCardViewStateful(
-                          info: _directoryList[index].toString());
-                    }),
-              )
+                  itemCount: _directoryList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GalleryDirsCardViewStateful(
+                        directoryPath: _directoryList[index].toString(),
+                        index: index,
+                        callback: onTapCallback);
+                  },
+                ),
+              ),
             ],
           ))
         : Center(
@@ -52,6 +56,17 @@ class _GalleryDirsListViewWidgetState
               ],
             ),
           );
+  }
+
+  void onTapCallback(int idx) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            GalleryDirWidgetStateful(directory: _directoryList[idx]),
+        fullscreenDialog: true,
+      ),
+    );
   }
 
   Future<void> _getTreeDirectories() async {
