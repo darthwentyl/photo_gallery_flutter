@@ -17,6 +17,8 @@ class PhotoListWidget extends StatefulWidget {
 }
 
 class _PhotoListWidgetState extends State<PhotoListWidget> {
+  int _index = 0;
+
   @override
   Widget build(BuildContext context) {
     double itemSize = calcItemSize(context);
@@ -38,7 +40,9 @@ class _PhotoListWidgetState extends State<PhotoListWidget> {
                   shape: BoxShape.rectangle,
                   border: Border.all(
                     width: 2,
-                    color: AppColor.cameraBackground,
+                    color: _index != idx
+                        ? AppColor.cameraBackground
+                        : AppColor.cameraBackgroundSelectImage,
                   ),
                   image: widget.photoList.isNotEmpty()
                       ? DecorationImage(
@@ -50,6 +54,7 @@ class _PhotoListWidgetState extends State<PhotoListWidget> {
                 ),
               ),
               onTap: () {
+                _index = idx;
                 widget.callback(idx);
               },
             );
