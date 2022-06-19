@@ -30,9 +30,11 @@ class FileController {
     if (!_permissionGranted) {
       await _getStoragePermission();
     }
-    // It needs remove additional text from path
+    // TODO: Analyse case where we have this artifact and explain why we have
     String directory = 'Directory: \'';
-    path = path.substring(directory.length, path.length);
+    if (path.contains(directory)) {
+      path = path.substring(directory.length, path.length);
+    }
     List<File> listFile = await FileManager.listFiles(path);
     return listFile;
   }

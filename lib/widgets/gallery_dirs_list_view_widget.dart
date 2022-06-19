@@ -6,7 +6,7 @@ import 'package:photo_gallery/controllers/file_controllers.dart';
 import 'package:photo_gallery/strings.dart';
 import 'package:photo_gallery/widgets/gallery_dir_widget.dart';
 
-import 'cards/gallery_dirs_card_view.dart';
+import 'views/gallery_dirs_card_view.dart';
 import 'loading_widget.dart';
 
 class GalleryDirsListViewWidgetStateful extends StatefulWidget {
@@ -33,20 +33,21 @@ class _GalleryDirsListViewWidgetState
     return _isInit
         ? Container(
             child: Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  itemCount: _directoryList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return GalleryDirsCardViewStateful(
-                        directoryPath: _directoryList[index].toString(),
-                        index: index,
-                        callback: onTapCallback);
-                  },
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: _directoryList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return GalleryDirsCardViewStateful(
+                          directoryPath: _directoryList[index].toString(),
+                          index: index,
+                          callback: onTapCallback);
+                    },
+                  ),
                 ),
-              ),
-            ],
-          ))
+              ],
+            ),
+          )
         : const LoadingWidget();
   }
 

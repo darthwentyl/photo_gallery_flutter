@@ -28,4 +28,7 @@ class AppColor extends Color {
   static const googleMapfloatingActionButton = Colors.white;
 
   static const galleryDirsCardViewBorder = Colors.black;
+  static const galleryDirsCardViewBackground = Colors.black;
+  static const galleryDirGridViewStrokeFont = Colors.black;
+  static const galleryDirGridViewFont = Colors.white;
 }
