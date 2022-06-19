@@ -52,7 +52,9 @@ class _GalleryImageViewState extends State<GalleryImageViewStatefulWidget> {
           selectIndex: widget.selectIndex,
         );
       case 1:
-        return GalleryMapViewStatefulWidget();
+        return GalleryMapViewStatefulWidget(
+          image: widget.fileList[widget.selectIndex],
+        );
       default:
         return GalleryImagePreviewStatefulWidget(
           fileList: widget.fileList,
